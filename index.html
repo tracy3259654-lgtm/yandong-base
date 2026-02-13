@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>ACCESS REQUIRED</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="login">
+
+<canvas id="matrix"></canvas>
+
+<div class="login-box">
+  <h1>YANDONG 秘密基地</h1>
+  <p>ACCESS LEVEL REQUIRED</p>
+  <input type="password" id="pwd" placeholder="输入访问密码">
+  <button onclick="login()">ENTER</button>
+  <div id="msg"></div>
+</div>
+
+<script>
+/* ===== 矩阵雨 ===== */
+const c = document.getElementById("matrix");
+const ctx = c.getContext("2d");
+let w = c.width = window.innerWidth;
+let h = c.height = window.innerHeight;
+const cols = Math.floor(w / 20);
+const drops = Array(cols).fill(1);
+
+function drawMatrix() {
+  ctx.fillStyle = "rgba(0,0,0,0.08)";
+  ctx.fillRect(0,0,w,h);
+  ctx.fillStyle = "#00ff9c";
+  ctx.font = "16px monospace";
+  drops.forEach((y,i)=>{
+    const text = String.fromCharCode(0x30A0 + Math.random()*96);
+    ctx.fillText(text, i*20, y*20);
+    drops[i] = y*20 > h && Math.random() > 0.975 ? 0 : y+1;
+  });
+}
+setInterval(drawMatrix, 50);
+
+/* ===== 登录校验 ===== */
+function login() {
+  const pwd = document.getElementById("pwd").value;
+  if (pwd === "yandong2026") {
+    window.location.href = "home.html";
+  } else {
+    document.getElementById("msg").innerText = "ACCESS DENIED";
+  }
+}
+</script>
+
+</body>
+</html>

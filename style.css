@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  background: #03060a;
+  color: #d8ffee;
+  font-family: "Orbitron","Microsoft YaHei",sans-serif;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+.login-box {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 320px;
+  height: 260px;
+  background: rgba(0,0,0,.7);
+  border: 1px solid #00ff9c;
+  text-align: center;
+  padding: 30px;
+  box-shadow: 0 0 40px rgba(0,255,156,.4);
+}
+
+.login-box input, .login-box button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  background: black;
+  border: 1px solid #00ff9c;
+  color: #00ff9c;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  border-bottom: 1px solid rgba(0,255,156,.3);
+}
+
+nav a {
+  color: #00ff9c;
+  text-decoration: none;
+}
+
+header {
+  text-align: center;
+  padding: 100px 20px 60px;
+}
+
+h1, h2 {
+  color: #00ff9c;
+}
+
+section {
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid #00ff9c;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,255,156,.3);
+}
