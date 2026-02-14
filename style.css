@@ -1,75 +1,290 @@
-body {
-  margin: 0;
-  background: #03060a;
-  color: #d8ffee;
-  font-family: "Orbitron","Microsoft YaHei",sans-serif;
+/* =========================
+   YANDONG CORE · VISUAL KERNEL
+   ========================= */
+
+/* ---------- 基础 ---------- */
+* {
+  box-sizing: border-box;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #020406;
+  color: #c8ffe6;
+  font-family: "Orbitron","Microsoft YaHei",sans-serif;
+  overflow: hidden;
+}
+
+/* ---------- 全局呼吸 ---------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center,
+    rgba(0,255,156,.08),
+    transparent 70%);
+  animation: breathe 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes breathe {
+  0%,100% { opacity: .3; }
+  50% { opacity: .6; }
+}
+
+/* ---------- Canvas 层 ---------- */
 canvas {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
 }
 
-.login-box {
-  position: absolute;
+/* ---------- HUD 扫描线 ---------- */
+.scanlines {
+  pointer-events: none;
+  position: fixed;
   inset: 0;
-  margin: auto;
-  width: 320px;
-  height: 260px;
-  background: rgba(0,0,0,.7);
-  border: 1px solid #00ff9c;
-  text-align: center;
-  padding: 30px;
-  box-shadow: 0 0 40px rgba(0,255,156,.4);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,.02),
+      rgba(255,255,255,.02) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+  z-index: 5;
+  mix-blend-mode: overlay;
 }
 
-.login-box input, .login-box button {
-  width: 100%;
-  margin-top: 15px;
-  padding: 10px;
-  background: black;
-  border: 1px solid #00ff9c;
-  color: #00ff9c;
+/* ---------- 噪点 ---------- */
+.noise {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+  z-index: 6;
 }
 
+/* ---------- 导航 HUD ---------- */
 nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 18px;
   display: flex;
   justify-content: center;
-  gap: 40px;
-  padding: 20px;
-  border-bottom: 1px solid rgba(0,255,156,.3);
+  gap: 50px;
+  border-bottom: 1px solid rgba(0,255,156,.25);
+  backdrop-filter: blur(8px);
+  z-index: 10;
 }
 
 nav a {
   color: #00ff9c;
   text-decoration: none;
+  letter-spacing: 4px;
+  opacity: .6;
+  transition: .3s;
 }
 
-header {
+nav a:hover {
+  opacity: 1;
+  text-shadow: 0 0 12px #00ff9c;
+}
+
+/* ---------- 权限色 ---------- */
+body[data-role="GUEST"] {
+  --accent: #4ad9ff;
+}
+body[data-role="OPERATOR"] {
+  --accent: #00ff9c;
+}
+body[data-role="ADMIN"] {
+  --accent: #00ff9c;
+}
+body[data-role="ROOT"] {
+  --accent: #ff3b3b;
+}
+
+:root {
+  --accent: #00ff9c;
+}
+
+/* ---------- 核心中枢 ---------- */
+.core {
+  position: relative;
+  z-index: 2;
   text-align: center;
-  padding: 100px 20px 60px;
+  margin-top: 140px;
 }
 
-h1, h2 {
-  color: #00ff9c;
+.core h1 {
+  font-size: 44px;
+  letter-spacing: 10px;
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(0,255,156,.6);
 }
 
-section {
-  max-width: 1000px;
+.core p {
+  opacity: .6;
+  letter-spacing: 4px;
+}
+
+/* ---------- 能量环 ---------- */
+.ring {
+  position: absolute;
+  inset: -80px;
   margin: auto;
-  padding: 40px 20px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,255,156,.35);
+  box-shadow: 0 0 60px rgba(0,255,156,.35);
+  animation: spin 20s linear infinite;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-  gap: 20px;
+.ring.fast {
+  width: 220px;
+  height: 220px;
+  border-color: rgba(0,255,156,.6);
+  animation-duration: 8s;
 }
 
-.card {
-  border: 1px solid #00ff9c;
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- HUD 状态块 ---------- */
+.hud {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 100px auto;
+  z-index: 2;
+  position: relative;
+}
+
+.hud-item {
+  border: 1px solid rgba(0,255,156,.35);
+  padding: 22px 36px;
+  text-align: center;
+  background: rgba(0,0,0,.45);
+  box-shadow:
+    inset 0 0 30px rgba(0,255,156,.2),
+    0 0 20px rgba(0,255,156,.15);
+  min-width: 160px;
+}
+
+.hud-item span {
+  display: block;
+  font-size: 26px;
+  margin-top: 8px;
+  color: var(--accent);
+}
+
+/* ---------- 模块面板 ---------- */
+.panel {
+  position: relative;
+  padding: 28px;
+  border: 1px solid rgba(0,255,156,.4);
+  background: linear-gradient(135deg,
+    rgba(0,255,156,.08),
+    rgba(0,0,0,.4));
+  box-shadow:
+    0 0 30px rgba(0,255,156,.2);
+  overflow: hidden;
+}
+
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0,255,156,.25),
+    transparent
+  );
+  animation: scan 3.5s infinite;
+}
+
+@keyframes scan {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100%); }
+}
+
+/* ---------- 终端 ---------- */
+.terminal {
+  position: relative;
+  z-index: 2;
+  margin: 120px auto;
+  width: 80%;
+  max-width: 900px;
+  padding: 30px;
+  background: rgba(0,0,0,.7);
+  border: 1px solid rgba(0,255,156,.5);
+  box-shadow: 0 0 40px rgba(0,255,156,.3);
+}
+
+.terminal pre {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  background: var(--accent);
+  margin-left: 4px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ---------- 登录 ---------- */
+.login-box {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 360px;
+  height: 300px;
   padding: 30px;
   text-align: center;
-  box-shadow: 0 0 20px rgba(0,255,156,.3);
+  background: rgba(0,0,0,.8);
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 60px rgba(0,255,156,.5);
+  z-index: 3;
+}
+
+.login-box input,
+.login-box button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  background: black;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: inherit;
+}
+
+/* ---------- LOGOUT ---------- */
+.logout {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 8px 14px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: rgba(0,0,0,.6);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.logout:hover {
+  background: var(--accent);
+  color: black;
 }
