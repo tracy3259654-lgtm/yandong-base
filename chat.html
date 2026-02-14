@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>AI TERMINAL</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="home.html">CORE</a>
+  <a href="ai.html">MODULES</a>
+  <a href="chat.html">TERMINAL</a>
+  <a href="contact.html">LINK</a>
+</nav>
+
+<section class="terminal">
+  <div id="chat"></div>
+  <input id="input" placeholder="ENTER COMMAND">
+</section>
+
+<script>
+if(localStorage.getItem("auth")!=="true"){location.href="index.html";}
+const chat=document.getElementById("chat");
+const input=document.getElementById("input");
+input.onkeydown=e=>{
+  if(e.key==="Enter"){
+    chat.innerHTML+=`<p>> ${input.value}</p><p class="ai">AI: COMMAND RECEIVED</p>`;
+    input.value="";
+    chat.scrollTop=chat.scrollHeight;
+  }
+}
+</script>
+
+</body>
+</html>
