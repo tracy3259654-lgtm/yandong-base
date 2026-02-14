@@ -2,22 +2,30 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>CONTACT</title>
+<title>LINK</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav>
-  <a href="home.html">基地</a>
-  <a href="ai.html">AI 模块</a>
-  <a href="contact.html">通信</a>
+  <a href="home.html">CORE</a>
+  <a href="ai.html">MODULES</a>
+  <a href="chat.html">TERMINAL</a>
+  <a href="contact.html">LINK</a>
 </nav>
 
-<section>
-  <h2>通信接口</h2>
-  <p>Status：ONLINE</p>
-  <p>Access Level：AUTHORIZED</p>
+<section class="link">
+  <h2>COMMUNICATION LINK</h2>
+  <p>STATUS: ONLINE</p>
+  <p>ACCESS LEVEL: AUTHORIZED</p>
 </section>
+
+<div class="logout" onclick="logout()">LOGOUT</div>
+
+<script>
+if(localStorage.getItem("auth")!=="true"){location.href="index.html";}
+function logout(){localStorage.clear();location.href="index.html";}
+</script>
 
 </body>
 </html>
