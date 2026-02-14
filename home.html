@@ -2,28 +2,45 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>YANDONG 秘密基地</title>
-<link rel="stylesheet" href="style.css">
+<title>YANDONG CORE</title>
+<link rel="stylesheet" href="core.css">
 </head>
 <body>
 
 <nav>
-  <a href="home.html">基地</a>
-  <a href="ai.html">AI 模块</a>
-  <a href="contact.html">通信</a>
+  <a href="home.html">CORE</a>
+  <a href="terminal.html">TERMINAL</a>
+  <a href="logs.html">LOGS</a>
 </nav>
 
-<header>
-  <h1>YANDONG 秘密基地</h1>
-  <p>ALL SYSTEMS ONLINE</p>
-</header>
+<div class="core">
+  <div class="ring"></div>
+  <div class="ring fast"></div>
+  <h1>YANDONG CORE</h1>
+  <p>SYSTEM ONLINE</p>
+</div>
 
-<section>
-  <h2>基地概述</h2>
-  <p>
-    这是一个用于 AI、系统架构与未来科技探索的秘密基地。
-  </p>
-</section>
+<div class="hud">
+  <div class="hud-item">CORE LOAD<span>63%</span></div>
+  <div class="hud-item">SECURITY<span>ACTIVE</span></div>
+  <div class="hud-item">ROLE<span id="role"></span></div>
+</div>
+
+<div class="logout" onclick="logout()">LOGOUT</div>
+
+<div class="scanlines"></div>
+<div class="noise"></div>
+
+<script src="core.js"></script>
+<script>
+document.getElementById("role").textContent =
+  localStorage.getItem("yd_role") || "GUEST";
+
+function logout(){
+  localStorage.clear();
+  location.href="index.html";
+}
+</script>
 
 </body>
 </html>
